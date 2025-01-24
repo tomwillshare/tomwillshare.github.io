@@ -108,26 +108,43 @@
     </main>
 
  
-    <script> 
-        // JavaScript goes here 
-        document.querySelectorAll('.note').forEach(button => {
+<script>
+    document.querySelectorAll('.note').forEach(button => {
         button.addEventListener('click', () => {
             const note = button.getAttribute('data-note');
             document.getElementById('selected-note').textContent = note;
 
-            // Example: Replace with your chord calculations
+            // Example chord dictionary with notes
             const chords = {
-                "C": ["C", "Am", "Fmaj7", "G7"],
-                "D": ["D", "Bm", "Gmaj7", "A7"],
-                // Add other notes...
+                "C": [
+                    { name: "C", notes: ["Root: C", "3rd: E", "5th: G"] },
+                    { name: "Am", notes: ["Root: A", "3rd: C", "5th: E"] },
+                    { name: "Fmaj7", notes: ["Root: F", "3rd: A", "5th: C", "7th: E"] },
+                    { name: "G7", notes: ["Root: G", "3rd: B", "5th: D", "7th: F"] }
+                ],
+                "D": [
+                    { name: "D", notes: ["Root: D", "3rd: F#", "5th: A"] },
+                    { name: "Bm", notes: ["Root: B", "3rd: D", "5th: F#"] },
+                    { name: "Gmaj7", notes: ["Root: G", "3rd: B", "5th: D", "7th: F#"] },
+                    { name: "A7", notes: ["Root: A", "3rd: C#", "5th: E", "7th: G"] }
+                ]
+                // Add other notes and chords as needed
             };
 
             const chordList = chords[note] || [];
             const chordListEl = document.getElementById('chord-list');
-            chordListEl.innerHTML = chordList.map(chord => `<li>${chord}</li>`).join('');
+            chordListEl.innerHTML = chordList.map(chord => `
+                <li>
+                    <strong>${chord.name}</strong>
+                    <ul>
+                        ${chord.notes.map(note => `<li>${note}</li>`).join('')}
+                    </ul>
+                </li>
+            `).join('');
         });
     });
-    </script> 
+</script>
+
  
 </body> 
 </html>
