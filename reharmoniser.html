@@ -5,33 +5,131 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Mixed HTML, CSS, and JavaScript</title> 
     <style> 
-        /* CSS styles go here */ 
-        body { 
-            font-family: Arial, sans-serif; 
-            background-color: #f0f0f0; 
-            margin: 0; 
-            padding: 20px; 
-        } 
-        h1 { 
-            color: #333; 
-        } 
-        button { 
-            padding: 10px 15px; 
-            font-size: 16px; 
-            cursor: pointer; 
-        } 
+                /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        
+        header {
+            background-color: #4CAF50;
+            padding: 1rem;
+            color: white;
+        }
+        
+        main {
+            padding: 2rem;
+        }
+        
+        h1, h2 {
+            margin: 0 0 1rem;
+        }
+        
+        /* Note grid styles */
+        .note-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+        
+        .note {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 1rem;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .note:hover {
+            background-color: #45a049;
+        }
+        
+        /* Chord display styles */
+        .chord-display {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 5px;
+        }
+        
+        #chord-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        #chord-list li {
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
     </style> 
 </head> 
-<body> 
+
+<body>
+    <header>
+        <h1>Chord Reharmonisation Tool</h1>
+    </header>
+    <main>
+        <div class="note-grid">
+            <!-- Notes grid -->
+            <button class="note" data-note="C">C</button>
+            <button class="note" data-note="C#">C#</button>
+            <button class="note" data-note="D">D</button>
+            <button class="note" data-note="D#">D#</button>
+            <button class="note" data-note="E">E</button>
+            <button class="note" data-note="F">F</button>
+            <button class="note" data-note="F#">F#</button>
+            <button class="note" data-note="G">G</button>
+            <button class="note" data-note="G#">G#</button>
+            <button class="note" data-note="A">A</button>
+            <button class="note" data-note="A#">A#</button>
+            <button class="note" data-note="B">B</button>
+        </div>
+        <div class="chord-display">
+            <!-- Chords display -->
+            <h2>Chords for <span id="selected-note">...</span></h2>
+            <ul id="chord-list">
+                <!-- Chords will be dynamically added here -->
+            </ul>
+        </div>
+    </main>
+
  
     <h1>Hello, World!</h1> 
     <button id="myButton">Click Me!</button> 
  
     <script> 
         // JavaScript goes here 
-        document.getElementById('myButton').addEventListener('click', function() { 
-            alert('Button was clicked!'); 
-        }); 
+        document.querySelectorAll('.note').forEach(button => {
+        button.addEventListener('click', () => {
+            const note = button.getAttribute('data-note');
+            document.getElementById('selected-note').textContent = note;
+
+            // Example: Replace with your chord calculations
+            const chords = {
+                "C": ["C", "Am", "Fmaj7", "G7"],
+                "D": ["D", "Bm", "Gmaj7", "A7"],
+                // Add other notes...
+            };
+
+            const chordList = chords[note] || [];
+            const chordListEl = document.getElementById('chord-list');
+            chordListEl.innerHTML = chordList.map(chord => `<li>${chord}</li>`).join('');
+        });
+    });
     </script> 
  
 </body> 
