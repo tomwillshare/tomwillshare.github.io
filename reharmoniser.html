@@ -75,6 +75,45 @@
             font-size: 1.2rem;
             margin: 0.5rem 0;
         }
+
+        /* Styles for the chord list */
+#chord-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#chord-list li {
+    font-size: 1.5rem; /* Larger font for the chord name */
+    margin: 1rem 0;
+    display: flex;
+    align-items: center;
+}
+
+#chord-list li ul {
+    display: inline; /* Display notes inline */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 1rem; /* Smaller font for the notes */
+    margin-left: 1rem; /* Add spacing next to the chord name */
+}
+
+#chord-list li ul li {
+    display: inline; /* Inline for notes */
+    margin-right: 0.5rem; /* Spacing between notes */
+    color: #555; /* Lighter colour for notes text */
+}
+
+/* Highlight chord name */
+#chord-list li strong {
+    font-weight: bold;
+    color: #333; /* Strong colour for chord name */
+}
     </style> 
 </head> 
 
