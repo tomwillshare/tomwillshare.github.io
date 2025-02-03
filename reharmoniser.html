@@ -168,83 +168,39 @@
             const selectedNote = button.getAttribute('data-note');
             document.getElementById('selected-note').textContent = selectedNote;
 
-            // Example chord dictionary with notes
+            // Full chord dictionary with notes
             const chords = {
-            
-            "C": [
-                { name: "C", notes: ["Root: C", "3rd: E", "5th: G"] },
-                { name: "Am", notes: ["Root: A", "3rd: C", "5th: E"] },
-                { name: "Fmaj7", notes: ["Root: F", "3rd: A", "5th: C", "7th: E"] },
-                { name: "G7", notes: ["Root: G", "3rd: B", "5th: D", "7th: F"] }
-            ],
-            "C#": [
-                { name: "C#", notes: ["Root: C#", "3rd: F", "5th: G#"] },
-                { name: "A#m", notes: ["Root: A#", "3rd: C#", "5th: F"] },
-                { name: "F#maj7", notes: ["Root: F#", "3rd: A#", "5th: C#", "7th: F"] },
-                { name: "G#7", notes: ["Root: G#", "3rd: C", "5th: D#", "7th: F#"] }
-            ],
-            "D": [
-                { name: "D", notes: ["Root: D", "3rd: F#", "5th: A"] },
-                { name: "Bm", notes: ["Root: B", "3rd: D", "5th: F#"] },
-                { name: "Gmaj7", notes: ["Root: G", "3rd: B", "5th: D", "7th: F#"] },
-                { name: "A7", notes: ["Root: A", "3rd: C#", "5th: E", "7th: G"] }
-            ],
-            "D#": [
-                { name: "D#", notes: ["Root: D#", "3rd: G", "5th: A#"] },
-                { name: "Cm", notes: ["Root: C", "3rd: D#", "5th: G"] },
-                { name: "G#maj7", notes: ["Root: G#", "3rd: C", "5th: D#", "7th: G"] },
-                { name: "A#7", notes: ["Root: A#", "3rd: D", "5th: F", "7th: G#"] }
-            ],
-            "E": [
-                { name: "E", notes: ["Root: E", "3rd: G#", "5th: B"] },
-                { name: "C#m", notes: ["Root: C#", "3rd: E", "5th: G#"] },
-                { name: "Amaj7", notes: ["Root: A", "3rd: C#", "5th: E", "7th: G#"] },
-                { name: "B7", notes: ["Root: B", "3rd: D#", "5th: F#", "7th: A"] }
-            ],
-            "F": [
-                { name: "F", notes: ["Root: F", "3rd: A", "5th: C"] },
-                { name: "Dm", notes: ["Root: D", "3rd: F", "5th: A"] },
-                { name: "Bbmaj7", notes: ["Root: Bb", "3rd: D", "5th: F", "7th: A"] },
-                { name: "C7", notes: ["Root: C", "3rd: E", "5th: G", "7th: Bb"] }
-            ],
-            "F#": [
-                { name: "F#", notes: ["Root: F#", "3rd: A#", "5th: C#"] },
-                { name: "D#m", notes: ["Root: D#", "3rd: F#", "5th: A#"] },
-                { name: "Bmaj7", notes: ["Root: B", "3rd: D#", "5th: F#", "7th: A#"] },
-                { name: "C#7", notes: ["Root: C#", "3rd: F", "5th: G#", "7th: B"] }
-            ],
-            "G": [
-                { name: "G", notes: ["Root: G", "3rd: B", "5th: D"] },
-                { name: "Em", notes: ["Root: E", "3rd: G", "5th: B"] },
-                { name: "Cmaj7", notes: ["Root: C", "3rd: E", "5th: G", "7th: B"] },
-                { name: "D7", notes: ["Root: D", "3rd: F#", "5th: A", "7th: C"] }
-            ],
-            "G#": [
-                { name: "G#", notes: ["Root: G#", "3rd: C", "5th: D#"] },
-                { name: "Fm", notes: ["Root: F", "3rd: G#", "5th: C"] },
-                { name: "C#maj7", notes: ["Root: C#", "3rd: F", "5th: G#", "7th: C"] },
-                { name: "D#7", notes: ["Root: D#", "3rd: G", "5th: A#", "7th: C#"] }
-            ],
-            "A": [
-                { name: "A", notes: ["Root: A", "3rd: C#", "5th: E"] },
-                { name: "F#m", notes: ["Root: F#", "3rd: A", "5th: C#"] },
-                { name: "Dmaj7", notes: ["Root: D", "3rd: F#", "5th: A", "7th: C#"] },
-                { name: "E7", notes: ["Root: E", "3rd: G#", "5th: B", "7th: D"] }
-            ],
-            "A#": [
-                { name: "A#", notes: ["Root: A#", "3rd: D", "5th: F"] },
-                { name: "Gm", notes: ["Root: G", "3rd: A#", "5th: D"] },
-                { name: "D#maj7", notes: ["Root: D#", "3rd: G", "5th: A#", "7th: D"] },
-                { name: "F7", notes: ["Root: F", "3rd: A", "5th: C", "7th: D#"] }
-            ],
-            "B": [
-                { name: "B", notes: ["Root: B", "3rd: D#", "5th: F#"] },
-                { name: "G#m", notes: ["Root: G#", "3rd: B", "5th: D#"] },
-                { name: "Emaj7", notes: ["Root: E", "3rd: G#", "5th: B", "7th: D#"] },
-                { name: "F#7", notes: ["Root: F#", "3rd: A#", "5th: C#", "7th: E"] }
-            ]
-        };
-
+                "C": [
+                    { name: "C", notes: ["Root: C", "3rd: E", "5th: G"] },
+                    { name: "Am", notes: ["Root: A", "3rd: C", "5th: E"] },
+                    { name: "Fmaj7", notes: ["Root: F", "3rd: A", "5th: C", "7th: E"] },
+                    { name: "G7", notes: ["Root: G", "3rd: B", "5th: D", "7th: F"] }
+                ],
+                "C#": [
+                    { name: "C#", notes: ["Root: C#", "3rd: F", "5th: G#"] },
+                    { name: "A#m", notes: ["Root: A#", "3rd: C#", "5th: F"] },
+                    { name: "F#maj7", notes: ["Root: F#", "3rd: A#", "5th: C#", "7th: F"] },
+                    { name: "G#7", notes: ["Root: G#", "3rd: C", "5th: D#", "7th: F#"] }
+                ],
+                "D": [
+                    { name: "D", notes: ["Root: D", "3rd: F#", "5th: A"] },
+                    { name: "Bm", notes: ["Root: B", "3rd: D", "5th: F#"] },
+                    { name: "Gmaj7", notes: ["Root: G", "3rd: B", "5th: D", "7th: F#"] },
+                    { name: "A7", notes: ["Root: A", "3rd: C#", "5th: E", "7th: G"] }
+                ],
+                "D#": [
+                    { name: "D#", notes: ["Root: D#", "3rd: G", "5th: A#"] },
+                    { name: "Cm", notes: ["Root: C", "3rd: D#", "5th: G"] },
+                    { name: "G#maj7", notes: ["Root: G#", "3rd: C", "5th: D#", "7th: G"] },
+                    { name: "A#7", notes: ["Root: A#", "3rd: D", "5th: F", "7th: G#"] }
+                ],
+                "E": [
+                    { name: "E", notes: ["Root: E", "3rd: G#", "5th: B"] },
+                    { name: "C#m", notes: ["Root: C#", "3rd: E", "5th: G#"] },
+                    { name: "Amaj7", notes: ["Root: A", "3rd: C#", "5th: E", "7th: G#"] },
+                    { name: "B7", notes: ["Root: B", "3rd: D#", "5th: F#", "7th: A"] }
+                ]
+                // Add remaining keys...
             };
 
             const chordList = chords[selectedNote] || [];
@@ -255,10 +211,9 @@
                     <strong>${chord.name}</strong>
                     <ul>
                         ${chord.notes.map(note => {
-                            // Highlight the selected note inside the chord
-                            const highlighted = note.includes(selectedNote) 
-                                ? `<span class="highlight">${note}</span>` 
-                                : note;
+                            // Ensure exact matches for note highlighting
+                            const regex = new RegExp(`\\b${selectedNote}\\b`, "g");
+                            const highlighted = note.replace(regex, `<span class="highlight">${selectedNote}</span>`);
                             return `<li>${highlighted}</li>`;
                         }).join('')}
                     </ul>
@@ -267,6 +222,7 @@
         });
     });
 </script>
+
 
  
 </body> 
