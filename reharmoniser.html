@@ -76,6 +76,16 @@
             margin: 0.5rem 0;
         }
 
+        .highlight {
+            color: #d32f2f; /* Red shade for emphasis */
+            font-weight: bold;
+            background-color: #ffebee; /* Light red background */
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+
+        
         /* Styles for the chord list */
 #chord-list {
     list-style: none;
@@ -155,8 +165,8 @@
 <script>
     document.querySelectorAll('.note').forEach(button => {
         button.addEventListener('click', () => {
-            const note = button.getAttribute('data-note');
-            document.getElementById('selected-note').textContent = note;
+            const selectedNote = button.getAttribute('data-note');
+            document.getElementById('selected-note').textContent = selectedNote;
 
             // Example chord dictionary with notes
             const chords = {
@@ -172,16 +182,22 @@
                     { name: "Gmaj7", notes: ["Root: G", "3rd: B", "5th: D", "7th: F#"] },
                     { name: "A7", notes: ["Root: A", "3rd: C#", "5th: E", "7th: G"] }
                 ]
-                // Add other notes and chords as needed
             };
 
-            const chordList = chords[note] || [];
+            const chordList = chords[selectedNote] || [];
             const chordListEl = document.getElementById('chord-list');
+            
             chordListEl.innerHTML = chordList.map(chord => `
                 <li>
                     <strong>${chord.name}</strong>
                     <ul>
-                        ${chord.notes.map(note => `<li>${note}</li>`).join('')}
+                        ${chord.notes.map(note => {
+                            // Highlight the selected note inside the chord
+                            const highlighted = note.includes(selectedNote) 
+                                ? `<span class="highlight">${note}</span>` 
+                                : note;
+                            return `<li>${highlighted}</li>`;
+                        }).join('')}
                     </ul>
                 </li>
             `).join('');
