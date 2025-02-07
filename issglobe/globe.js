@@ -349,26 +349,38 @@ DAT.Globe = function(container, opts) {
   }
 
   // Function to update the ISS marker position using live data from the ISS API.
-  function updateISSPosition() {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://api.open-notify.org/iss-now.json", true);
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState === 4 && xhr.status === 200) {
+function updateISSPosition() {
+  console.log("updateISSPosition: Starting API request");
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "http://api.open-notify.org/iss-now.json", true);
+  xhr.onreadystatechange = function() {
+    console.log("updateISSPosition: xhr readyState =", xhr.readyState);
+    if (xhr.readyState === 4) {
+      console.log("updateISSPosition: API response received with status", xhr.status);
+      if (xhr.status === 200) {
         var response = JSON.parse(xhr.responseText);
+        console.log("updateISSPosition: API response:", response);
         if (response.message === "success") {
           var lat = parseFloat(response.iss_position.latitude);
           var lng = parseFloat(response.iss_position.longitude);
+          console.log("updateISSPosition: ISS coordinates:", lat, lng);
           var radius = 200; // Globe radius
           var phi = (90 - lat) * Math.PI / 180;
           var theta = (180 - lng) * Math.PI / 180;
           issMarker.position.x = radius * Math.sin(phi) * Math.cos(theta);
           issMarker.position.y = radius * Math.cos(phi);
           issMarker.position.z = radius * Math.sin(phi) * Math.sin(theta);
+          console.log("updateISSPosition: ISS marker position set to:", issMarker.position);
+        } else {
+          console.log("updateISSPosition: API returned an unsuccessful message.");
         }
+      } else {
+        console.log("updateISSPosition: API call failed with status", xhr.status);
       }
-    };
-    xhr.send(null);
-  }
+    }
+  };
+  xhr.send(null);
+}
 
   // Initialise the ISS updates: update immediately and then every 5 seconds.
   function initISSUpdates() {
