@@ -352,7 +352,8 @@ DAT.Globe = function(container, opts) {
 function updateISSPosition() {
   console.log("updateISSPosition: Starting API request");
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "http://api.open-notify.org/iss-now.json", true);
+  // Use a secure proxy URL to fetch the ISS API data
+  xhr.open("GET", "https://cors-anywhere.herokuapp.com/http://api.open-notify.org/iss-now.json", true);
   xhr.onreadystatechange = function() {
     console.log("updateISSPosition: xhr readyState =", xhr.readyState);
     if (xhr.readyState === 4) {
@@ -381,6 +382,7 @@ function updateISSPosition() {
   };
   xhr.send(null);
 }
+
 
   // Initialise the ISS updates: update immediately and then every 5 seconds.
   function initISSUpdates() {
