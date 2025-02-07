@@ -11,7 +11,7 @@
       }
       body {
         background: #000 url('/issglobe/loading.gif') center center no-repeat;
-        color: #ffffff;
+        color: #fff;
         font-family: sans-serif;
         font-size: 13px;
         line-height: 20px;
@@ -57,6 +57,13 @@
         var globe = new DAT.Globe(container, { imgDir: '/issglobe/' });
         globe.animate();
         document.body.style.backgroundImage = 'none'; // remove loading image
+
+        // Optional: log a message every 5 seconds to check for ISS updates
+        setInterval(function() {
+          console.log('ISS marker position:', globe.scene.children.filter(function(child) {
+            return child && child.material && child.material.color && child.material.color.getHex() === 0xff0000;
+          }));
+        }, 5000);
       }
     </script>
   </body>
