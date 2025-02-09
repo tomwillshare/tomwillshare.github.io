@@ -86,7 +86,7 @@
     var issMarkerGeometry = new THREE.SphereGeometry(3, 16, 16);
     var issMarkerMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
     // Ensure the marker is always visible (not occluded by the globe)
-    issMarkerMaterial.depthTest = false;
+    issMarkerMaterial.depthTest = true;
     var issMarker = new THREE.Mesh(issMarkerGeometry, issMarkerMaterial);
     issMarker.renderOrder = 9999;
     globe.scene.add(issMarker);
