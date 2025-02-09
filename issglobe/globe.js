@@ -95,6 +95,7 @@ DAT.Globe = function(container, opts) {
 
     camera = new THREE.PerspectiveCamera(30, w / h, 1, 10000);
     camera.position.z = distance;
+    this.camera = camera;
 
     scene = new THREE.Scene();
 
