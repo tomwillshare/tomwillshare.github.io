@@ -72,71 +72,122 @@
     <!-- Include your globe.js which renders the Earth -->
     <script type="text/javascript" src="/issglobe/globe.js"></script>
     <script type="text/javascript">
-      if (!Detector.webgl) {
-        Detector.addGetWebGLMessage();
-      } else {
-        // Get the container for the globe
-        var container = document.getElementById('container');
-        // Initialize the globe, passing the correct image directory so that world.jpg loads correctly.
-        var globe = new DAT.Globe(container, { imgDir: '/issglobe/' });
-        globe.animate();
-        document.body.style.backgroundImage = 'none'; // remove loading image
-        
-        // Create a dedicated ISS marker (a small red sphere).
-        // If your globe.js already creates one, you can use that reference.
-        var issMarkerGeometry = new THREE.SphereGeometry(3, 16, 16);
-        var issMarkerMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-        // Ensure the marker is always visible (not occluded by the globe)
-        issMarkerMaterial.depthTest = false;
-        var issMarker = new THREE.Mesh(issMarkerGeometry, issMarkerMaterial);
-        issMarker.renderOrder = 9999;
-        globe.scene.add(issMarker);
-        
-        // Global variable to hold the ISS historical data.
-        var issHistoryData = [];
-        var slider = document.getElementById('slider');
-        var timestampDiv = document.getElementById('timestamp');
-        
-        // Function to update the ISS marker based on a given data point.
-        function updateIssMarkerFromData(dataPoint) {
-          var lat = dataPoint.latitude;
-          var lng = dataPoint.longitude;
-          // For this example, we plot the marker on the surface of the globe (radius 200).
-          // (You could incorporate altitude if desired.)
-          var radius = 200;
-          var phi = (90 - lat) * Math.PI / 180;
-          var theta = (180 - lng) * Math.PI / 180;
-          issMarker.position.x = radius * Math.sin(phi) * Math.cos(theta);
-          issMarker.position.y = radius * Math.cos(phi);
-          issMarker.position.z = radius * Math.sin(phi) * Math.sin(theta);
-          
-          // Display the timestamp as a UTC date string.
-          var date = new Date(dataPoint.timestamp * 1000);
-          timestampDiv.textContent = date.toUTCString();
-        }
-        
-        // Load the static JSON file containing the ISS historical data.
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/issglobe/isslocations.json', true);
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState === 4 && xhr.status === 200) {
-            issHistoryData = JSON.parse(xhr.responseText);
-            // Set the slider's max attribute to the last index of the data array.
-            slider.max = issHistoryData.length - 1;
-            // Optionally, update the marker to the first data point.
-            updateIssMarkerFromData(issHistoryData[0]);
-          }
-        };
-        xhr.send(null);
-        
-        // Update the ISS marker position when the slider is moved.
-        slider.addEventListener('input', function() {
-          var index = parseInt(slider.value);
-          if (issHistoryData.length > 0 && index < issHistoryData.length) {
-            updateIssMarkerFromData(issHistoryData[index]);
-          }
-        });
+  if (!Detector.webgl) {
+    Detector.addGetWebGLMessage();
+  } else {
+    // Get the container for the globe
+    var container = document.getElementById('container');
+    // Initialize the globe, passing the correct image directory so that world.jpg loads correctly.
+    var globe = new DAT.Globe(container, { imgDir: '/issglobe/' });
+    globe.animate();
+    document.body.style.backgroundImage = 'none'; // remove loading image
+
+    // Create a dedicated ISS marker (a small red sphere).
+    var issMarkerGeometry = new THREE.SphereGeometry(3, 16, 16);
+    var issMarkerMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+    // Ensure the marker is always visible (not occluded by the globe)
+    issMarkerMaterial.depthTest = false;
+    var issMarker = new THREE.Mesh(issMarkerGeometry, issMarkerMaterial);
+    issMarker.renderOrder = 9999;
+    globe.scene.add(issMarker);
+
+    // Global variable to hold the ISS historical data.
+    var issHistoryData = [];
+    var slider = document.getElementById('slider');
+    var timestampDiv = document.getElementById('timestamp');
+
+    // Function to update the ISS marker based on a given data point.
+    function updateIssMarkerFromData(dataPoint) {
+      var lat = dataPoint.latitude;
+      var lng = dataPoint.longitude;
+      // For this example, we plot the marker on the surface of the globe (radius 200).
+      // (You could incorporate altitude if desired.)
+      var radius = 200;
+      var phi = (90 - lat) * Math.PI / 180;
+      var theta = (180 - lng) * Math.PI / 180;
+      issMarker.position.x = radius * Math.sin(phi) * Math.cos(theta);
+      issMarker.position.y = radius * Math.cos(phi);
+      issMarker.position.z = radius * Math.sin(phi) * Math.sin(theta);
+
+      // Display the timestamp as a UTC date string.
+      var date = new Date(dataPoint.timestamp * 1000);
+      timestampDiv.textContent = date.toUTCString();
+    }
+
+    // Load the static JSON file containing the ISS historical data.
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/issglobe/iss_history.json', true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        issHistoryData = JSON.parse(xhr.responseText);
+        // Set the slider's max attribute to the last index of the data array.
+        slider.max = issHistoryData.length - 1;
+        // Optionally, update the marker to the first data point.
+        updateIssMarkerFromData(issHistoryData[0]);
       }
-    </script>
+    };
+    xhr.send(null);
+
+    // Auto-cycle variables
+    var autoCycleInterval = null;
+    var resumeAutoCycleTimeout = null;
+
+    // Function to advance the slider automatically.
+    function advanceSlider() {
+      var currentValue = parseInt(slider.value, 10);
+      var maxValue = parseInt(slider.max, 10);
+      if (currentValue >= maxValue) {
+        slider.value = 0;
+      } else {
+        slider.value = currentValue + 1;
+      }
+      // Dispatch an input event so that the ISS marker updates.
+      slider.dispatchEvent(new Event('input'));
+    }
+
+    // Start auto-cycling every 100 milliseconds.
+    function startAutoCycle() {
+      if (!autoCycleInterval) {
+        autoCycleInterval = setInterval(advanceSlider, 100);
+      }
+    }
+
+    // Stop auto-cycling.
+    function stopAutoCycle() {
+      if (autoCycleInterval) {
+        clearInterval(autoCycleInterval);
+        autoCycleInterval = null;
+      }
+    }
+
+    // When the user interacts with the slider, stop auto-cycling,
+    // and then resume it after 5 seconds of inactivity.
+    function userInteractionDetected() {
+      stopAutoCycle();
+      if (resumeAutoCycleTimeout) {
+        clearTimeout(resumeAutoCycleTimeout);
+      }
+      resumeAutoCycleTimeout = setTimeout(function() {
+        startAutoCycle();
+      }, 5000); // resume auto-cycle after 5 seconds
+    }
+
+    // Listen for user interactions on the slider.
+    slider.addEventListener('mousedown', userInteractionDetected);
+    slider.addEventListener('touchstart', userInteractionDetected);
+    slider.addEventListener('input', function() {
+      if (issHistoryData.length > 0) {
+        var index = parseInt(slider.value, 10);
+        if (index < issHistoryData.length) {
+          updateIssMarkerFromData(issHistoryData[index]);
+        }
+      }
+    });
+
+    // Start the auto-cycle initially.
+    startAutoCycle();
+  }
+</script>
+
   </body>
 </html>
