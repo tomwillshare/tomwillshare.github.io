@@ -3,7 +3,7 @@
 <head> 
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>Mixed HTML, CSS, and JavaScript</title> 
+    <title>Reharmonisation Tool</title> 
     <style> 
                 /* General styles */
         body {
@@ -153,7 +153,7 @@
         </div>
         <div class="chord-display">
             <!-- Chords display -->
-            <h2>Chords for <span id="selected-note">...</span></h2>
+            <h2>Chords containing <span id="selected-note">...</span></h2>
             <ul id="chord-list">
                 <!-- Chords will be dynamically added here -->
             </ul>
@@ -174,73 +174,73 @@
                     { name: "C", notes: ["Root: C", "3rd: E", "5th: G"] },
                     { name: "Am", notes: ["Root: A", "3rd: C", "5th: E"] },
                     { name: "Fmaj7", notes: ["Root: F", "3rd: A", "5th: C", "7th: E"] },
-                    { name: "G7", notes: ["Root: G", "3rd: B", "5th: D", "7th: F"] }
+                    { name: "GSus4", notes: ["Root: G", "4th: C", "5th: D"] }
                 ],
                 "C#": [
                     { name: "C#", notes: ["Root: C#", "3rd: F", "5th: G#"] },
                     { name: "A#m", notes: ["Root: A#", "3rd: C#", "5th: F"] },
                     { name: "F#maj7", notes: ["Root: F#", "3rd: A#", "5th: C#", "7th: F"] },
-                    { name: "G#7", notes: ["Root: G#", "3rd: C", "5th: D#", "7th: F#"] }
+                    { name: "G#Sus4", notes: ["Root: G#", "4th: C#", "5th: D#"] }
                 ],
                 "D": [
                     { name: "D", notes: ["Root: D", "3rd: F#", "5th: A"] },
                     { name: "Bm", notes: ["Root: B", "3rd: D", "5th: F#"] },
                     { name: "Gmaj7", notes: ["Root: G", "3rd: B", "5th: D", "7th: F#"] },
-                    { name: "A7", notes: ["Root: A", "3rd: C#", "5th: E", "7th: G"] }
+                    { name: "ASus4", notes: ["Root: A", "4th: D", "5th: E"] }
                 ],
                 "D#": [
                     { name: "D#", notes: ["Root: D#", "3rd: G", "5th: A#"] },
                     { name: "Cm", notes: ["Root: C", "3rd: D#", "5th: G"] },
                     { name: "G#maj7", notes: ["Root: G#", "3rd: C", "5th: D#", "7th: G"] },
-                    { name: "A#7", notes: ["Root: A#", "3rd: D", "5th: F", "7th: G#"] }
+                    { name: "A#Sus4", notes: ["Root: A#", "4th: D#", "5th: F"] }
                 ],
                 "E": [
                     { name: "E", notes: ["Root: E", "3rd: G#", "5th: B"] },
                     { name: "C#m", notes: ["Root: C#", "3rd: E", "5th: G#"] },
                     { name: "Amaj7", notes: ["Root: A", "3rd: C#", "5th: E", "7th: G#"] },
-                    { name: "B7", notes: ["Root: B", "3rd: D#", "5th: F#", "7th: A"] }
+                    { name: "BSus4", notes: ["Root: B", "4th: E", "5th: F#"] }
                 ],
                 "F": [
                     { name: "F", notes: ["Root: F", "3rd: A", "5th: C"] },
                     { name: "Dm", notes: ["Root: D", "3rd: F", "5th: A"] },
                     { name: "Bbmaj7", notes: ["Root: Bb", "3rd: D", "5th: F", "7th: A"] },
-                    { name: "C7", notes: ["Root: C", "3rd: E", "5th: G", "7th: Bb"] }
+                    { name: "CSus4", notes: ["Root: C", "4th: F", "5th: G"] }
                 ],
                 "F#": [
                     { name: "F#", notes: ["Root: F#", "3rd: A#", "5th: C#"] },
                     { name: "D#m", notes: ["Root: D#", "3rd: F#", "5th: A#"] },
                     { name: "Bmaj7", notes: ["Root: B", "3rd: D#", "5th: F#", "7th: A#"] },
-                    { name: "C#7", notes: ["Root: C#", "3rd: F", "5th: G#", "7th: B"] }
+                    { name: "C#Sus4", notes: ["Root: C#", "4th: F#", "5th: G#"] }
                 ],
                 "G": [
                     { name: "G", notes: ["Root: G", "3rd: B", "5th: D"] },
                     { name: "Em", notes: ["Root: E", "3rd: G", "5th: B"] },
                     { name: "Cmaj7", notes: ["Root: C", "3rd: E", "5th: G", "7th: B"] },
-                    { name: "D7", notes: ["Root: D", "3rd: F#", "5th: A", "7th: C"] }
+                    { name: "DSus4", notes: ["Root: D", "4th: G", "5th: A"] }
                 ],
                 "G#": [
                     { name: "G#", notes: ["Root: G#", "3rd: C", "5th: D#"] },
                     { name: "Fm", notes: ["Root: F", "3rd: G#", "5th: C"] },
                     { name: "C#maj7", notes: ["Root: C#", "3rd: F", "5th: G#", "7th: C"] },
-                    { name: "D#7", notes: ["Root: D#", "3rd: G", "5th: A#", "7th: C#"] }
+                    { name: "D#Sus4", notes: ["Root: D", "4th: G#", "5th: A#"] }
                 ],
                 "A": [
                     { name: "A", notes: ["Root: A", "3rd: C#", "5th: E"] },
                     { name: "F#m", notes: ["Root: F#", "3rd: A", "5th: C#"] },
                     { name: "Dmaj7", notes: ["Root: D", "3rd: F#", "5th: A", "7th: C#"] },
-                    { name: "E7", notes: ["Root: E", "3rd: G#", "5th: B", "7th: D"] }
+                    { name: "ESus4", notes: ["Root: E", "4th: A", "5th: B"] }
                 ],
                 "A#": [
                     { name: "A#", notes: ["Root: A#", "3rd: D", "5th: F"] },
                     { name: "Gm", notes: ["Root: G", "3rd: A#", "5th: D"] },
                     { name: "D#maj7", notes: ["Root: D#", "3rd: G", "5th: A#", "7th: D"] },
-                    { name: "F7", notes: ["Root: F", "3rd: A", "5th: C", "7th: D#"] }
+                    { name: "FSus4", notes: ["Root: F", "4th: Bb", "5th: C"] }
                 ],
                 "B": [
                     { name: "B", notes: ["Root: B", "3rd: D#", "5th: F#"] },
                     { name: "G#m", notes: ["Root: G#", "3rd: B", "5th: D#"] },
                     { name: "Emaj7", notes: ["Root: E", "3rd: G#", "5th: B", "7th: D#"] },
-                    { name: "F#7", notes: ["Root: F#", "3rd: A#", "5th: C#", "7th: E"] }
+                    { name: "F#Sus4", notes: ["Root: F#", "4th: B", "5th: C#"] }
                 ]
               
             };
