@@ -17,7 +17,7 @@
       <p class="subtitle">Mechanical Engineer, VP R&D, Product Development, CTO. That sort of thing. </p>
       <hr>
       <section>
-        <H1>Building an International Space Station Tracker. </H1>
+        <H2>Building an International Space Station Tracker. </H2>
         <p>My son and I watched the International Space Station (ISS) zoom across the sky here in Newcastle-Upon-Tyne (UK) and he asked where it was going next, and I didn’t know. </p>  
         <p>I did some digging about found this http://api.open-notify.org/iss-now.json which returns the live location of the ISS each time you refresh.  </p> 
         <p>Then I remembered seeing <a href="https://experiments.withgoogle.com/chrome/globe">these</a> cool globes made by the Google Data Arts Team and thought I’d see if I could overlay the two to show the path of the ISS. The example globes pulled in .json files with population data so I tried pulling in the live ISS data instead. Unfortunately the ISS API endpoint is being requested via HTTP, and with my page being loaded over HTTPS my browser kept blocking it, I briefly considered using a proxy  but eventually decided I didn’t really need a live location, just some historic information on the flight path.  </p> 
